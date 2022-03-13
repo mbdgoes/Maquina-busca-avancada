@@ -3,20 +3,27 @@
 Uma máquina de busca é composta principalmente por três componentes: crawler, que realiza a coleta dos documentos; indexador, que lê os documentos e constrói o índice invertido; e processador de consultas, que consulta o índice e ordena os documentos de acordo com a relevância com a consulta. O índice invertido é uma estrutura simples que mapeia um conjunto de palavras aos documentos onde elas estão presentes
 
 Para realizar as consultas tipo máquina de busca é utilizado o cálculo de similaridade proposto por Zobet et Al (2006), onde é calculado o grau de similaridade entre q e cada um dos documentos do corpus, depois ordenados, gerando um ranking de documentos por similaridade. A fórmula para esse cálculo é dada abaixo:
-<p align = "center">
-	<img src = "https://latex.codecogs.com/svg.image?%5Cdpi%7B110%7D%5Cbg%7Bwhite%7Dsim(d_%7Bj%7D,q)=%20%5Csum_%7Bi%20=%201%7D%5E%7BN%7D%5Cfrac%7Bw_%7Bi,j%7D%5Cast%20w_%7Bi,q%7D%7D%7BW_%7Bd%7D%7D">
-</p>
 
 <p align = "center">
-	<img src = "https://latex.codecogs.com/svg.image?%5Cdpi%7B110%7D%5Cbg%7Bwhite%7DW_%7Bd%7D%20=%20%5Csqrt%7B%5Csum_%7Bt%7Dw_%7Bd,t%7D%5E%7B2%7D%7D">
+	<img src = "https://user-images.githubusercontent.com/69545575/158040893-47a60592-16c4-445b-a932-760eab6a44f9.png#gh-light-mode-only">
+	<img src = "https://user-images.githubusercontent.com/69545575/158040902-5a272423-f1d7-497f-bc28-fc5c0b2db5bf.png#gh-dark-mode-only">
+</p>
+
+
+<p align = "center">
+	<img src = "https://user-images.githubusercontent.com/69545575/158040950-80b2c464-7b15-4834-baea-075ed7c079b8.png#gh-light-mode-only">
+	<img src = "https://user-images.githubusercontent.com/69545575/158040954-5ce7a9fa-4e37-4cc0-af13-019819a60076.png#gh-dark-mode-only">
 </p>
 
 Onde W<sub> d </sub> normaliza o produto interno dos vetores de pesos em função do tamanho do documento. Esta normalização dispensa percorrer novamente todo o corpus a cada consulta e, neste trabalho, W<sub> d </sub> será a raiz quadrada do número de termos distintos no documento. A normalização em função da consulta é desconsiderada por ser constante para todos os documentos.
 
 O peso do termo é comumente computado baseado na função tf.idf (Salton, 1988). Assim o peso do termo t no documento d, w<sub> t,d </sub> é computado da seguinte forma:
+
 <p align = "center">
-	<img src = "https://latex.codecogs.com/svg.image?%5Cbg%7Bwhite%7DW_%7Bt,d%7D%20=%20f_%7Bt,d%7D%20%5Cast%20log%5Cfrac%7B%5Cleft%7C%20D%20%5Cright%7C%7D%7Bf_%7Bt%7D%7D">
-	</p>
+	<img src = "https://user-images.githubusercontent.com/69545575/158040981-3cf80995-def4-4de3-a780-5c5f10be8e53.png#gh-light-mode-only">
+	<img src = "https://user-images.githubusercontent.com/69545575/158040984-0439dbbe-f9d1-46a2-a985-99b6f26fb397.png#gh-dark-mode-only">
+</p>
+	
 Onde f <sub> t,d </sub> é a frequência do termo t no documento d, f <sub> t </sub> é número de documentos na base que possuem o termo t e |D| é o número total de documentos na base.
 
 O segundo fator na equação corresponde à raridade do termo, que seria o inverso da frequência nos documentos da base (idf: inverse document frequency). O valor do idf tende a ser muito alto quando o termo é bastante raro, e por isto é amortizado com a função log
